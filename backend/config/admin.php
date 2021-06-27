@@ -4,29 +4,29 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | ws-admin name
+    | laravel-admin name
     |--------------------------------------------------------------------------
     |
-    | This value is the name of ws-admin, This setting is displayed on the
+    | This value is the name of laravel-admin, This setting is displayed on the
     | login page.
     |
     */
-    'name' => 'ws-admin',
+    'name' => 'laravel-admin',
 
     /*
     |--------------------------------------------------------------------------
-    | ws-admin logo
+    | laravel-admin logo
     |--------------------------------------------------------------------------
     |
     | The logo of all admin pages. You can also set it as an image by using a
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>ws</b> admin',
+    'logo' => '<img src="/images/logo-full_2.svg" alt="AdminLogo" style="width: 80%; height: 80%; background-color: #fff;">',
 
     /*
     |--------------------------------------------------------------------------
-    | ws-admin mini logo
+    | laravel-admin mini logo
     |--------------------------------------------------------------------------
     |
     | The logo of all admin pages when the sidebar menu is collapsed. You can
@@ -34,21 +34,21 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>Ws</b>',
+    'logo-mini' => '<img src="/images/logo_2.svg" alt="AdminLogoMini" style="width: 80%; height: 80%; background-color: #fff;">',
 
     /*
     |--------------------------------------------------------------------------
-    | ws-admin bootstrap setting
+    | laravel-admin bootstrap setting
     |--------------------------------------------------------------------------
     |
-    | This value is the path of ws-admin bootstrap file.
+    | This value is the path of laravel-admin bootstrap file.
     |
     */
     'bootstrap' => app_path('Admin/bootstrap.php'),
 
     /*
     |--------------------------------------------------------------------------
-    | ws-admin route settings
+    | laravel-admin route settings
     |--------------------------------------------------------------------------
     |
     | The routing configuration of the admin page, including the path prefix,
@@ -67,7 +67,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | ws-admin install directory
+    | laravel-admin install directory
     |--------------------------------------------------------------------------
     |
     | The installation directory of the controller and routing configuration
@@ -79,7 +79,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | ws-admin html title
+    | laravel-admin html title
     |--------------------------------------------------------------------------
     |
     | Html title for all pages.
@@ -99,7 +99,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | ws-admin auth setting
+    | laravel-admin auth setting
     |--------------------------------------------------------------------------
     |
     | Authentication settings for all admin pages. Include an authentication
@@ -143,7 +143,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | ws-admin upload setting
+    | laravel-admin upload setting
     |--------------------------------------------------------------------------
     |
     | File system configuration for form upload files and images, including
@@ -164,10 +164,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | ws-admin database settings
+    | laravel-admin database settings
     |--------------------------------------------------------------------------
     |
-    | Here are database settings for ws-admin builtin model & tables.
+    | Here are database settings for laravel-admin builtin model & tables.
     |
     */
     'database' => [
@@ -204,7 +204,7 @@ return [
     | User operation log setting
     |--------------------------------------------------------------------------
     |
-    | By setting this option to open or close operation log in ws-admin.
+    | By setting this option to open or close operation log in laravel-admin.
     |
     */
     'operation_log' => [
@@ -249,7 +249,7 @@ return [
     | Set a default avatar for newly created users.
     |
     */
-    'default_avatar' => '/vendor/ws-admin/AdminLTE/dist/img/user2-160x160.jpg',
+    'default_avatar' => '/vendor/laravel-admin/AdminLTE/dist/img/user2-160x160.jpg',
 
     /*
     |--------------------------------------------------------------------------
@@ -306,7 +306,7 @@ return [
     | Show version at footer
     |--------------------------------------------------------------------------
     |
-    | Whether to display the version number of ws-admin at the footer of
+    | Whether to display the version number of laravel-admin at the footer of
     | each page
     |
     */
@@ -391,7 +391,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | You can find all available extensions here
-    | https://github.com/ws-admin-extensions.
+    | https://github.com/laravel-admin-extensions.
     |
     */
     'extensions' => [
