@@ -58,8 +58,8 @@
     "Login": "ログイン",
     "Log Out": "ログアウト",
     "Logout": "ログアウト",
-    "Logout Other Browser Sessions": "ログアウト 他のブラウザセッション",
-    "Log Out Other Browser Sessions": "ログアウト 他のブラウザセッション",
+    "Logout Other Browser Sessions": "他のブラウザセッションからログアウトする",
+    "Log Out Other Browser Sessions": "他のブラウザセッションからログアウトする",
     "Manage API Tokens": "APIトークンの管理",
     "Manage Account": "アカウントの管理",
     "Manage Role": "役割を管理する",
@@ -141,6 +141,19 @@
     "You may not leave a team that you created.": "作成したチームから離れることはできません。",
     "of": "of",
     "results": "結果",
-    "to": "to"
+    "to": "to",
+    "Workshop": "ワークショップ",
+    "Workshop Register": "ワークショップ登録",
+    "Workshop Detail": "ワークショップ詳細",
+    "Workshop Join Confirm": "ワークショップ参加確認",
+    "Title": "タイトル",
+    "Venue": "開催地",
+    "Description": "紹介文",
+    "Event Date Time": "開催日時",
+    "Caution": "注意・警告事項",
+    "Cancellation Deadline": "キャンセル期限",
+    "Min Participants": "最少催行人数",
+    "Case Of Rain": "雨天時の開催",
+    "Participation Fee": "参加費"
   }
   
