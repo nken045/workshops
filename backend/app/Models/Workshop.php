@@ -52,6 +52,7 @@ class Workshop extends Model
      */
     public static function fetchList(String $status, int|null $userId)
     {
+        // dd($status === config('const.workshop.status.unpublished'));
         return Workshop::select([
             'workshops.id',
             'workshops.host_user_id',
@@ -60,6 +61,9 @@ class Workshop extends Model
             'workshops.description',
             'workshops.status',
         ])
+            ->when($status === config('const.workshop.status.unpublished'), function ($query) use ($userId) {
+                return $query->where('workshops.host_user_id', $userId);
+            })
             ->where('workshops.status', $status)
             ->leftJoin('workshop_datetimes', function ($join) {
                 $join->on('workshops.id', '=', 'workshop_datetimes.workshop_id')
@@ -93,7 +97,7 @@ class Workshop extends Model
             'workshop_datetimes.id AS datetime_id',
             'workshop_datetimes.event_date_time',
         ])
-            ->when($status, function ($query, $status) {
+            ->when($status, function ($query) use ($status) {
                 return $query->where('workshops.status', $status);
             })
             ->where('workshops.id', $workshopId)
