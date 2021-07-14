@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\WorkshopDatetime;
 use Carbon\CarbonImmutable;
+use DB;
+use App\Consts\Category;
+use App\Consts\AreaConsts;
 
 class Workshop extends Model
 {
@@ -21,6 +24,7 @@ class Workshop extends Model
     protected $fillable = [
         'host_user_id',
         'title',
+        'venue_id',
         'venue',
         'description',
         'caution',
@@ -38,6 +42,7 @@ class Workshop extends Model
      */
     protected $casts = [
         'host_user_id' => 'integer',
+        'venue_id' => 'integer',
         'cancellation_deadline' => 'datetime',
         'participation_fee' => 'decimal:2',
         'status' => 'string',
@@ -50,13 +55,15 @@ class Workshop extends Model
      * @param int|null ユーザーID
      * @return Collection ワークショップ一覧
      */
-    public static function fetchList(String $status, int|null $userId)
+    public static function fetchList(String $status, int|null $userId, array|null $serchParam)
     {
         // dd($status === config('const.workshop.status.unpublished'));
-        return Workshop::select([
+
+        $result =  Workshop::select([
             'workshops.id',
             'workshops.host_user_id',
             'workshops.title',
+            'workshops.venue_id',
             'workshops.venue',
             'workshops.description',
             'workshops.status',
@@ -69,8 +76,24 @@ class Workshop extends Model
                 $join->on('workshops.id', '=', 'workshop_datetimes.workshop_id')
                     ->whereNull('workshop_datetimes.deleted_at');
             })
-            ->where('workshop_datetimes.event_date_time', '>', now())
-            ->get();
+            ->where('workshop_datetimes.event_date_time', '>', now());
+            
+        if (!empty($serchParam))
+        {
+            if ($serchParam['category'] !== null)
+        {
+            $result->when(array_key_exists($serchParam['category'], Category::CATEGORY_LIST_LOGICAL), function ($query) use ($serchParam) {
+                return $query->where('workshops.category_id', $serchParam['category']);
+            });
+        } elseif ($serchParam['area'] !== null)
+        {
+            $result->when(array_key_exists($serchParam['area'], AreaConsts::PREFECTURE_LIST), function ($query) use ($serchParam) {
+                return $query->where('workshops.venue_id', $serchParam['area']);
+            });
+        }
+        }    
+    
+            return $result->get();
     }
 
     /**
@@ -86,6 +109,7 @@ class Workshop extends Model
             'workshops.id',
             'workshops.host_user_id',
             'workshops.title',
+            'workshops.venue_id',
             'workshops.venue',
             'workshops.description',
             'workshops.caution',
@@ -118,6 +142,7 @@ class Workshop extends Model
         $this->fill([
             'host_user_id' => $storeParam['userId'],
             'title' => $storeParam['title'],
+            'venue_id' => $storeParam['venue_id'],
             'venue' => $storeParam['venue'],
             'description' => $storeParam['description'],
             'caution' => $storeParam['caution'],

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Workshops\WorkshopController;
+use App\Http\Controllers\DefaultController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +16,16 @@ use App\Http\Controllers\Workshops\WorkshopController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DefaultController::class, 'viewAction'])->name('top');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+//検索結果一覧
+Route::get('/search', [SearchController::class, 'index'])->name('search.list');
+//詳細
+Route::get('detail', [DefaultController::class, 'show'])->name('detail');
 
 /** ワークショップ */
 Route::group(['prefix' => 'workshop', 'middleware' => ['auth:sanctum', 'verified']], function () {
@@ -34,11 +39,9 @@ Route::group(['prefix' => 'workshop', 'middleware' => ['auth:sanctum', 'verified
     Route::get('input', [WorkshopController::class, 'create'])
         ->name('workshop.create');
     // 新規登録（確認）
-    Route::post('confirm', [WorkshopController::class, 'confirm'])
-        ->name('workshop.confirm');
+    Route::post('confirm', [WorkshopController::class, 'confirm'])->name('workshop.confirm');
     // 新規登録（実行）
-    Route::post('complete', [WorkshopController::class, 'store'])
-        ->name('workshop.store');
+    Route::post('complete', [WorkshopController::class, 'store'])->name('workshop.store');
     // 参加（確認）
     Route::post('join/confirm', [WorkshopController::class, 'joinConfirm'])
         ->name('workshop.join.confirm');

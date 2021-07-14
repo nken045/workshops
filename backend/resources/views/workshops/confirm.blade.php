@@ -18,6 +18,28 @@
                             {{ Form::label('', session('title')) }}
                         </dd>
                     </div>
+                    {{-- カテゴリ --}}
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            {{ __('Category') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            @if (session('category_id'))
+                            {{ Form::label('', App\Consts\Category::CATEGORY_LIST_PHYSICS[session('category_id')]) }}
+                            @else
+                            未選択
+                            @endif
+                        </dd>
+                    </div>
+                    {{-- 開催地(都道府県) --}}
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            {{ __('Venue ID') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{ Form::label('', App\Consts\AreaConsts::PREFECTURE_LIST[session('venue_id')]) }}
+                        </dd>
+                    </div>
 
                     {{-- 開催地 --}}
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

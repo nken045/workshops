@@ -6,8 +6,7 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-
-    @include ('components.workshop-detail', ['workshop' => $workshop])
+        @include ('components.workshop-detail', ['workshop' => $workshop])
 
         @if (Auth::id() === $workshop->host_user_id)
             @if ($workshop->status === config('const.workshop.status.published'))
@@ -22,14 +21,6 @@
                     </div>
                 @endforeach
             @endif
-            {{ Form::open(['url' => route('workshop.edit'), 'method' => 'GET']) }}
-                <!-- 更新 -->
-                <button name="id" value="{{ $workshop->id }}" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">編集する</button>
-            {{ Form::close() }}
-            {{ Form::open(['url' => route('workshop.destroy')]) }}
-                <!-- 削除 -->
-                <button name="id" value="{{ $workshop->id }}" type="submit" onclick="return confirmDialog('ワークショップの削除')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">このワークショップを削除する</button>
-            {{ Form::close() }}
         @elseif (!$alreadyApplied)
             {{ Form::open(['url' => route('workshop.join.confirm')]) }}
                 <!-- 参加申し込み確認画面に遷移 -->
