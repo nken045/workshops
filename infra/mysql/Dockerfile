@@ -7,4 +7,4 @@ ENV MYSQL_DATABASE=workshop \
   TZ=Asia/Tokyo
 
 COPY ./my.cnf /etc/my.cnf
-RUN chmod 644 /etc/my.cnf
+RUN chmod 644 /etc/my.cnfshow 

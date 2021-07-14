@@ -570,7 +570,7 @@ video {
      -moz-appearance: none;
           appearance: none;
   background-color: #fff;
-  border-color: #6b7280;
+  border-color: #C1C1C1;
   border-width: 1px;
   border-radius: 0px;
   padding-top: 0.5rem;
@@ -656,7 +656,7 @@ select {
   width: 1rem;
   color: #2563eb;
   background-color: #fff;
-  border-color: #6b7280;
+  border-color: #C1C1C1;
   border-width: 1px;
 }
 

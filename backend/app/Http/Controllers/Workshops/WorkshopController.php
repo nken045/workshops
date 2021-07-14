@@ -22,9 +22,8 @@ class WorkshopController extends Controller
     public function index(Request $request)
     {
         $status = $request->input('status') ?? config('const.workshop.status.published');
-
-        $workshopList = Workshop::fetchList($status, Auth::id());
-        return view('workshops.list', ['workshops' => $workshopList]);
+        $workshopList = Workshop::fetchList($status, Auth::id(), null);
+        return view('workshops.list', ['status' => $status, 'workshops' => $workshopList ]);
     }
 
     /**
@@ -46,11 +45,29 @@ class WorkshopController extends Controller
      */
     public function confirm(Request $request)
     {
+        $rules = [
+            'title' => 'required|max:255',
+            'venue_id' => 'required',
+            'venue' => 'required|max:255',
+            'description' => 'required|min:20|max:2000',
+            'eventDateTime' => 'required|date',
+            'caution' => 'required|max:255',
+            'cancellationDeadline' => 'required|date|before_or_equal:eventDateTime',
+            'minParticipants' => 'required|max:255',
+            'caseOfRain' => 'required|max:255',
+            'participationFee' => 'required|integer'
+        ];
+        $this->validate($request, $rules);
+
         // 入力内容をセッションに保持
         session([
             // タイトル
             'title' => $request->title,
-            // 開催地
+            // カテゴリ
+            'category_id' => $request->category_id,
+            // 開催地（都道府県）
+            'venue_id' => $request->venue_id,
+            // 開催地（都道府県以降）
             'venue' => $request->venue,
             // 紹介文
             'description' => $request->description,
@@ -67,7 +84,7 @@ class WorkshopController extends Controller
             // 参加費
             'participationFee' => $request->participationFee,
         ]);
-
+    
         // 新規登録か更新によって遷移先を変更
         if (session()->has('isEdit')) {
             // 更新の場合
@@ -92,6 +109,8 @@ class WorkshopController extends Controller
         // セッションに格納した値を取得し、セッションを空にする
         $storeParam = [];
         $storeParam['title'] = $request->session()->pull('title');
+        $storeParam['category_id'] = $request->session()->pull('category_id');
+        $storeParam['venue_id'] = $request->session()->pull('venue_id');
         $storeParam['venue'] = $request->session()->pull('venue');
         $storeParam['description'] = $request->session()->pull('description');
         $storeParam['caution'] = $request->session()->pull('caution');
@@ -113,7 +132,7 @@ class WorkshopController extends Controller
 
         // 開催日時は別テーブルに登録するため、同じ配列には入れない
         $eventDate = $request->session()->pull('eventDateTime');
-
+        
         // 登録実行
         self::storeOrUpdate(
             $request->session()->pull('id'),
@@ -135,7 +154,7 @@ class WorkshopController extends Controller
      * @param CarbonImmutable イベント開催日
      * @param bool|null 更新フラグ
      */
-    private function storeOrUpdate(
+    private static function storeOrUpdate(
         int|null $id,
         int|null $datetimeId,
         array $param,
@@ -249,6 +268,10 @@ class WorkshopController extends Controller
             'datetimeId' => $workshop->datetime_id,
             // タイトル
             'title' => $workshop->title,
+            // カテゴリ
+            'category_id' => $workshop->category_id,
+            //開催地(都道府県)
+            'venue_id' => $workshop->venue_id,
             // 開催地
             'venue' => $workshop->venue,
             // 紹介文
